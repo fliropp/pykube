@@ -23,7 +23,7 @@ def get_response():
     resp = json.loads(jdict)
     return resp
 
-@app.route('/')
+@app.route('/pykube')
 def hello():
     redis.incr('hits')
     r = get_response()
