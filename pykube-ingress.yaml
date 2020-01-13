@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: pykube-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/pykube-backend: "true"
+spec:
+  tls:
+    - hosts:
+      - grpc.kube.com
+      secretName: kube-secret
+  rules:
+  - host: grpc.kube.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: pykube-service
+          servicePort: 50051
