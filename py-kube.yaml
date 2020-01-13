@@ -15,9 +15,10 @@ spec:
       containers:
       - name: pykube
         image: fliropp/pykube:latest
-        imagePullPolicy: Always
+        imagePullPolicy: Never
         ports:
-          - containerPort: 5000  # Should match the port number that the Go application listens on
+          - containerPort: 50051
+            protocol: TCP # Should match the port number that the Go application listens on
 ---
 apiVersion: v1
 kind: Service                    # Type of kubernetes resource
@@ -26,8 +27,9 @@ metadata:
 spec:
   type: NodePort                 # A port is opened on each node in your cluster via Kube proxy.
   ports:                         # Take incoming HTTP requests on port 9090 and forward them to the targetPort of 8080
-  - name: http
-    port: 80
-    targetPort: 5000
+  - protocol: TCP
+    port: 50051
+    targetPort: 50051
   selector:
     app: pykube
+  sessionAffinity: None

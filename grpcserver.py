@@ -1,35 +1,47 @@
+#!/usr/bin/pythona
+# -*- coding: utf-8 -*-
+
 import grpc
 from concurrent import futures
 import time
+import threading
 
-import pykube_pb2
-import pykube_pb2_grpc
-
-
-class PingServicer(pykube_pb2_grpc.PingServicer):
-
-    def GetPing(self, request, context):
-        print("got request . . .")
-        response = pykube_pb2.PingResp()
-        response.response = "pong"
-        return response
+import protokube_pb2
+import protokube_pb2_grpc
 
 
-server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+class StreamerServicer(protokube_pb2_grpc.StreamerServicer):
 
-pykube_pb2_grpc.add_PingServicer_to_server(
-        PingServicer(), server)
+    def StreamBullshit(self, request, context):
+        items = ["pykube1","pykube2", "pykube3" ,"pykube4", "pykube5"]
+        print("get that stream going . . .")
+        for item in items:
+            response = protokube_pb2.BullshitOut()
+            response.bo = item
+            yield response
 
-# listen on port 50051
-print('Starting server. Listening on port 50051.')
-server.add_insecure_port('[::]:50051')
-server.start()
-
-# since server.start() will not block,
-# a sleep-loop is added to keep alive
-try:
+def foobar():
     while True:
-        print("server cycle . . .")
+        print("cycle . . .")
+        time.sleep(1)
+
+def startGrpcServer():
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+
+    protokube_pb2_grpc.add_StreamerServicer_to_server(
+            StreamerServicer(), server)
+
+    # listen on port 50051
+    print('Starting server. Listening on port 50051.')
+    server.add_insecure_port('[::]:50051')
+    server.start()
+
+    while True:
         time.sleep(86400)
-except KeyboardInterrupt:
-    server.stop(0)
+    #except KeyboardInterrupt:
+    #    print("shutting down")
+    #    server.stop()
+
+
+
+
