@@ -10,26 +10,23 @@ import protokube_pb2
 import protokube_pb2_grpc
 
 
-class StreamerServicer(protokube_pb2_grpc.StreamerServicer):
+class BiStreamerServicer(protokube_pb2_grpc.BiStreamerServicer):
 
-    def StreamBullshit(self, request, context):
-        items = ["pykube1","pykube2", "pykube3" ,"pykube4", "pykube5"]
+    def BidirectionalStream(self, request_iterator, context):
         print("get that stream going . . .")
-        for item in items:
-            response = protokube_pb2.BullshitOut()
-            response.bo = item
+        for item in request_iterator:
+            print(item)
+            response = protokube_pb2.Vessel()
+            print(response)
+            response.Val = item.Val + 1
+            time.sleep(1)
             yield response
-
-def foobar():
-    while True:
-        print("cycle . . .")
-        time.sleep(1)
 
 def startGrpcServer():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
 
-    protokube_pb2_grpc.add_StreamerServicer_to_server(
-            StreamerServicer(), server)
+    protokube_pb2_grpc.add_BiStreamerServicer_to_server(
+            BiStreamerServicer(), server)
 
     # listen on port 50051
     print('Starting server. Listening on port 50051.')

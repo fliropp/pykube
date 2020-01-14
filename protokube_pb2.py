@@ -20,23 +20,23 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='protokube',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x0fprotokube.proto\x12\tprotokube\"\x18\n\nBullshitIn\x12\n\n\x02\x62i\x18\x01 \x01(\t\"\x19\n\x0b\x42ullshitOut\x12\n\n\x02\x62o\x18\x01 \x01(\t2O\n\x08Streamer\x12\x43\n\x0eStreamBullshit\x12\x15.protokube.BullshitIn\x1a\x16.protokube.BullshitOut\"\x00\x30\x01\x62\x06proto3')
+  serialized_pb=_b('\n\x0fprotokube.proto\x12\tprotokube\"\x15\n\x06Vessel\x12\x0b\n\x03Val\x18\x01 \x01(\x03\x32O\n\nBiStreamer\x12\x41\n\x13\x42idirectionalStream\x12\x11.protokube.Vessel\x1a\x11.protokube.Vessel\"\x00(\x01\x30\x01\x62\x06proto3')
 )
 
 
 
 
-_BULLSHITIN = _descriptor.Descriptor(
-  name='BullshitIn',
-  full_name='protokube.BullshitIn',
+_VESSEL = _descriptor.Descriptor(
+  name='Vessel',
+  full_name='protokube.Vessel',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='bi', full_name='protokube.BullshitIn.bi', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
+      name='Val', full_name='protokube.Vessel.Val', index=0,
+      number=1, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
@@ -53,81 +53,42 @@ _BULLSHITIN = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=30,
-  serialized_end=54,
+  serialized_end=51,
 )
 
-
-_BULLSHITOUT = _descriptor.Descriptor(
-  name='BullshitOut',
-  full_name='protokube.BullshitOut',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='bo', full_name='protokube.BullshitOut.bo', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=56,
-  serialized_end=81,
-)
-
-DESCRIPTOR.message_types_by_name['BullshitIn'] = _BULLSHITIN
-DESCRIPTOR.message_types_by_name['BullshitOut'] = _BULLSHITOUT
+DESCRIPTOR.message_types_by_name['Vessel'] = _VESSEL
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-BullshitIn = _reflection.GeneratedProtocolMessageType('BullshitIn', (_message.Message,), {
-  'DESCRIPTOR' : _BULLSHITIN,
+Vessel = _reflection.GeneratedProtocolMessageType('Vessel', (_message.Message,), {
+  'DESCRIPTOR' : _VESSEL,
   '__module__' : 'protokube_pb2'
-  # @@protoc_insertion_point(class_scope:protokube.BullshitIn)
+  # @@protoc_insertion_point(class_scope:protokube.Vessel)
   })
-_sym_db.RegisterMessage(BullshitIn)
-
-BullshitOut = _reflection.GeneratedProtocolMessageType('BullshitOut', (_message.Message,), {
-  'DESCRIPTOR' : _BULLSHITOUT,
-  '__module__' : 'protokube_pb2'
-  # @@protoc_insertion_point(class_scope:protokube.BullshitOut)
-  })
-_sym_db.RegisterMessage(BullshitOut)
+_sym_db.RegisterMessage(Vessel)
 
 
 
-_STREAMER = _descriptor.ServiceDescriptor(
-  name='Streamer',
-  full_name='protokube.Streamer',
+_BISTREAMER = _descriptor.ServiceDescriptor(
+  name='BiStreamer',
+  full_name='protokube.BiStreamer',
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=83,
-  serialized_end=162,
+  serialized_start=53,
+  serialized_end=132,
   methods=[
   _descriptor.MethodDescriptor(
-    name='StreamBullshit',
-    full_name='protokube.Streamer.StreamBullshit',
+    name='BidirectionalStream',
+    full_name='protokube.BiStreamer.BidirectionalStream',
     index=0,
     containing_service=None,
-    input_type=_BULLSHITIN,
-    output_type=_BULLSHITOUT,
+    input_type=_VESSEL,
+    output_type=_VESSEL,
     serialized_options=None,
   ),
 ])
-_sym_db.RegisterServiceDescriptor(_STREAMER)
+_sym_db.RegisterServiceDescriptor(_BISTREAMER)
 
-DESCRIPTOR.services_by_name['Streamer'] = _STREAMER
+DESCRIPTOR.services_by_name['BiStreamer'] = _BISTREAMER
 
 # @@protoc_insertion_point(module_scope)
